@@ -91,6 +91,8 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
+php/core/init.php
+
 # Sonarlint plugin
 .idea/sonarlint
 
