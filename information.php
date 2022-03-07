@@ -177,13 +177,16 @@ if($user->isLoggedIn()){
         }
         elseif($_GET['id'] == 4){
             if(Input::exists('post')){
-            if(Input::get('deleteLens')){
+                if(Input::get('deleteLens')){
                     try{
                         $user->deleteRecord('lens_power','id',Input::get('lensId'));
                         $successMessage = 'Lens Deleted Successful';
                     }catch (PDOException $e){
                         $e->getMessage();
                     }
+                }elseif (Input::get('edit_lens')){
+                    $user->updateRecord('lens_power', array("quantity" => Input::get('quantity')), Input::get('lensId'));
+                    $successMessage = 'Lens Updated Successful';
                 }
             }
         }
@@ -1048,11 +1051,15 @@ if($user->isLoggedIn()){
                                                     <td><?=$order['order_date']?></td>
                                                     <?php $os = $override->get('order_status','order_id',$order['id']);
                                                     if($os[0]['status'] == 0){?>
-                                                        <td><span class="label label-warning">Pending</span></td>
+                                                        <td><span class="label label-danger">Processing</span></td>
                                                     <?php }elseif($os[0]['status'] == 1){?>
-                                                        <td><span class="label label-info">Confirmed</span></td>
+                                                        <td><span class="label label-warning">Confirmed</span></td>
                                                     <?php }elseif($os[0]['status'] == 2){?>
-                                                        <td><span class="label label-success">Received</span></td>
+                                                        <td><span class="label label-default">On board</span></td>
+                                                    <?php }elseif($os[0]['status'] == 3){?>
+                                                        <td><span class="label label-info">Arrived</span></td>
+                                                    <?php }elseif($os[0]['status'] == 4){?>
+                                                        <td><span class="label label-success">Delivered</span></td>
                                                     <?php }?>
                                                     <td>
                                                         <form method="post">
@@ -1132,9 +1139,11 @@ if($user->isLoggedIn()){
                                                                         <div class="col-md-10">
                                                                             <select name="status" class="form-control select" required>
                                                                                 <option value="">Select Order Status</option>
-                                                                                <option value="0">Pending</option>
+                                                                                <option value="0">Processing</option>
                                                                                 <option value="1">Confirmed</option>
-                                                                                <option value="2">Received</option>
+                                                                                <option value="2">On board</option>
+                                                                                <option value="3">Arrived</option>
+                                                                                <option value="4">Delivered</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -1264,8 +1273,10 @@ if($user->isLoggedIn()){
                                                     <td><span class="label label-success">Enough</span></td>
                                                 <?php }?>
                                                 <td>
+                                                    <a href="#dlt<?=$x?>" class="btn btn-danger btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-remove"></span></a>
+                                                    <a href="#edit<?=$x?>" class="btn btn-danger btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-pencil"></span></a>
                                                     <form method="post">
-                                                        <a href="#dlt<?=$x?>" class="btn btn-danger btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-remove"></span></a>
+
                                                     </form>
                                                 </td>
                                             </tr>
@@ -1285,6 +1296,31 @@ if($user->isLoggedIn()){
                                                             <div class="modal-footer">
                                                                 <input type="hidden" name="lensId" value="<?=$lens['id']?>">
                                                                 <input type="submit" name="deleteLens" value="DELETE ORDER" class="btn btn-danger" >
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal" id="edit<?=$x?>" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                            <h4 class="modal-title" id="defModalHead<?=$x?>">EDIT LENS</h4>
+                                                        </div>
+                                                        <form method="post">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label class="col-md-2 control-label">Lens Quantity</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="number" name="quantity" class="form-control" value="<?=$lens['quantity']?>" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="hidden" name="lensId" value="<?=$lens['id']?>">
+                                                                <input type="submit" name="edit_lens" value="Update" class="btn btn-danger" >
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </form>
@@ -4509,6 +4545,9 @@ if($user->isLoggedIn()){
 </script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {

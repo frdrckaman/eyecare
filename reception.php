@@ -10,6 +10,7 @@ if($user->isLoggedIn()){
     if($user->data()->access_level == 3){
         if(Input::exists('post')){
             if(Input::get('sendToDoctor') || Input::get('submit')){
+                if (Input::get('p_cat') == 'adult'){$unq="'unique' => 'patient'";}else{$unq="";}
                 $validate = new validate();
                 $validate = $validate->check($_POST, array(
                     'firstname' => array(
@@ -31,7 +32,7 @@ if($user->isLoggedIn()){
                     ),
                     'phone_number' => array(
                         'required' => true,
-						'unique' => 'patient'
+						$unq
                     ),
                    
                 ));
@@ -43,6 +44,7 @@ if($user->isLoggedIn()){
                             'lastname' => Input::get('surname'),
                             'sex' => Input::get('sex'),
                             'age' => Input::get('age'),
+                            'p_cat' => Input::get('p_cat'),
                             'health_insurance' => Input::get('health_insurance'),
                             'dependent_no' => Input::get('dependent_no'),
                             'address' => Input::get('address'),
@@ -154,11 +156,11 @@ if($user->isLoggedIn()){
                                                 <h3>&nbsp;</h3>
                                                 <form role="form" class="form-horizontal" method="post">
                                                     <div class="form-group">
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-2">
                                                             <input name="firstname" type="text" class="form-control" placeholder="FIRSTNAME" value="<?=Input::get('firstname')?>">
                                                         </div>
                                                         <label class="col-md-1"></label>
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-2">
                                                             <input name="surname" type="text" class="form-control" placeholder="SURNAME" value="<?=Input::get('surname')?>">
                                                         </div>
                                                         <label class="col-md-1"></label>
@@ -171,6 +173,14 @@ if($user->isLoggedIn()){
                                                         </div>
                                                         <label class="col-md-1"></label>
                                                         <div class="col-md-2">
+                                                            <select name="p_cat" class="form-control select">
+                                                                <option value="<?=Input::get('p_cat')?>"><?php if( Input::get('p_cat')){echo Input::get('p_cat')?><?php }else{?>CATEGORY<?php }?></option>
+                                                                <option value="adult">Adult</option>
+                                                                <option value="child">Child</option>
+                                                            </select>
+                                                        </div>
+                                                        <label class="col-md-1"></label>
+                                                        <div class="col-md-1">
                                                             <input name="age" type="text"  class="form-control" placeholder="AGE" value="<?=Input::get('age')?>">
                                                         </div>
                                                     </div>
@@ -279,6 +289,9 @@ if($user->isLoggedIn()){
     }
 </script>
 <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
     $(function(){
         //Spinner
         $(".spinner_default").spinner()

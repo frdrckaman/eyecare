@@ -1354,6 +1354,7 @@ if($user->isLoggedIn()){
                         <input type="number" name="medCost" class="form-control" placeholder="Medicine cost" value="<?=$medC?>">
                     </div>
                 </div><hr>
+
                 <h2>Prescribed Lens</h2>
                 <div class="form-group">
                     <div class="col-md-offset-0 col-md-12">
@@ -1396,6 +1397,23 @@ if($user->isLoggedIn()){
                         </div>
                     </div>
                 </div>
+                    <h2>Recommendations</h2>
+                    <div class="form-group">
+                        <div class="col-md-offset-0 col-md-8">
+                            <?php $recommendations=$override->getNews('doctor_recommends','patient_id', $rx[0]['patient_id'], 'r_date', $rx[0]['checkup_date']);
+                            if($recommendations){
+                                foreach ($recommendations as $recommendation){
+                                    $recommend=$override->get('recommendation', 'id', $recommendation['recommend_id'])[0];
+                                    echo $recommend['name'].' , ';
+                                }
+                            }else{
+                                echo 'No Recommendation available';
+                            }
+                            ?>
+                            <hr>
+                        </div>
+                        <hr>
+                    </div><hr>
                 <div class="form-group">
                     <div class="col-md-3">
                         <label class="check"><input name="distance_glasses" type="checkbox" value="Distance Glasses" class="icheckbox" <?php if($rx[0]['distance_glasses']){?> checked <?php }?> disabled/> Distance Glasses</label>
@@ -1673,6 +1691,23 @@ if($user->isLoggedIn()){
                         </div>
                     </div>
                 </div>
+                    <h2>Recommendations</h2>
+                    <div class="form-group">
+                        <div class="col-md-offset-0 col-md-8">
+                            <?php $recommendations=$override->getNews('doctor_recommends','patient_id', $rx[0]['patient_id'], 'r_date', $rx[0]['checkup_date']);
+                            if($recommendations){
+                                foreach ($recommendations as $recommendation){
+                                    $recommend=$override->get('recommendation', 'id', $recommendation['recommend_id'])[0];
+                                    echo $recommend['name'].' , ';
+                                }
+                            }else{
+                                echo 'No Recommendation available';
+                            }
+                            ?>
+                            <hr>
+                        </div>
+                        <hr>
+                    </div><hr>
                 <div class="form-group">
                     <div class="col-md-3">
                         <label class="check"><input name="distance_glasses" type="checkbox" value="Distance Glasses" class="icheckbox" <?php if($rx[0]['distance_glasses']){?> checked <?php }?> disabled/> Distance Glasses</label>

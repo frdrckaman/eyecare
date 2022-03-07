@@ -1426,16 +1426,19 @@ if($user->isLoggedIn()) {
                                 <div class="col-md-1">
                                     <label class="check"><input type="radio" class="iradio" name="material" value="CR" checked/> CR</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <label class="check"><input type="radio" class="iradio" name="material" VALUE="Glass"/> Glass</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
+                                    <label class="check"><input type="radio" class="iradio" name="material" VALUE="PC"/> PC</label>
+                                </div>
+                                <div class="col-md-1">
                                     <label class="check"><input type="radio" class="iradio" name="eye" id="BE" value="both" checked/> Both Eyes</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <label class="check"><input type="radio" class="iradio" name="eye" id="RE" value="RE" /> Right Eye</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <label class="check"><input type="radio" class="iradio" name="eye" id="LE" value="LE" /> Left Eye</label>
                                 </div>
                             </div>
@@ -1455,10 +1458,15 @@ if($user->isLoggedIn()) {
                                 <div class="col-md-10">
                                     <select name="order_from" class="form-control select" >
                                         <option value="">Select Order From</option>
-                                        <option>GKB</option>
-                                        <option>Tan Optic</option>
-                                        <option>FEC Stock</option>
-                                        <option>Local Supplier</option>
+                                        <option value="GKB">GKB</option>
+                                        <option value="AUDI">AUDI</option>
+                                        <option value="VISION PLUS">VISION PLUS</option>
+                                        <option value="LENS MASTER">LENS MASTER</option>
+                                        <option value="OSM">OSM</option>
+                                        <option value="OSEA">OSEA</option>
+                                        <option value="TANOPTIC">TANOPTIC</option>
+                                        <option value="FEC Stock">FEC Stock</option>
+                                        <option value="Local Supplier">Local Supplier</option>
                                     </select>
                                 </div>
                             </div>

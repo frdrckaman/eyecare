@@ -204,6 +204,9 @@ public function __construct($user = null){
           $user = $this->find($username);
           if($user){
               if($this->data()->password === Hash::make($password,$this->data()->salt)){
+                  ini_set('session.gc_maxlifetime', 36000);
+                  session_set_cookie_params(36000);
+                  session_start();
                   Session::put($this->_sessionName,$this->data()->id);
                   if($remember){
                       $hash = Hash::unique();
