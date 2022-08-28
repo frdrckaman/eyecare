@@ -14,6 +14,18 @@ if($user->isLoggedIn()){
                             'staff_id' => $user->data()->id,
                             'date_modified' =>date('Y-m-d')
                         ),Input::get('id'));
+                        $check=$override->getNews('lens_order_status','order_id', Input::get('id'), 'order_status', Input::get('status'));
+                        if(!$check){
+                            $user->createRecord('lens_order_status',
+                                array(
+                                    'status_date' => Input::get('status_date'),
+                                    'order_id' => Input::get('id'),
+                                    'order_status' => Input::get('status'),
+                                    'create_on' =>date('Y-m-d'),
+                                    'staff_id' => $user->data()->id,
+                                )
+                            );
+                        }
                         $successMessage = 'Order Status Updated Successful';
                     }catch (PDOException $e){
                         die($e->getMessage());
@@ -1034,13 +1046,16 @@ if($user->isLoggedIn()){
                                                 <th>Quantity</th>
                                                 <th>Detail about Order</th>
                                                 <th>Date Placed</th>
+                                                <th>Duration</th>
                                                 <th>Status</th>
                                                 <th>Action Performed</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php $x=0;foreach($override->getDataOrderBy('lens_orders') as $order){?>
-                                                <tr><?php $product = $override->get('products','id',$order['product'])?>
+                                                <tr>
+                                                    <?php $product = $override->get('products','id',$order['product']);
+                                                    ?>
                                                     <td><?=$product[0]['name']?></td>
                                                     <td><?=$order['ref_no']?></td>
                                                     <td><?=$order['order_from']?></td>
@@ -1049,6 +1064,28 @@ if($user->isLoggedIn()){
                                                     <td><?=($order['RE_qty']+ $order['LE_qty'])?></td>
                                                     <td><?=$order['order_details']?></td>
                                                     <td><?=$order['order_date']?></td>
+                                                    <td>
+                                                        Since Processing: <strong>
+                                                            <?php $date=$override->getNews('lens_order_status','order_id', $order['id'],'order_status', 0);
+                                                            if($date){echo $user->dateDifference($date[0]['status_date'],$order['order_date'], 'days');}else{echo 0;}?>
+                                                        </strong>
+                                                        Since Confirmed:   <strong>
+                                                            <?php $date=$override->getNews('lens_order_status','order_id', $order['id'],'order_status', 1);
+                                                            if($date){echo $user->dateDifference($date[0]['status_date'],$order['order_date'], 'days');}else{echo 0;}?>
+                                                        </strong>
+                                                        Since On board: <strong>
+                                                            <?php $date=$override->getNews('lens_order_status','order_id', $order['id'],'order_status', 2);
+                                                            if($date){echo $user->dateDifference($date[0]['status_date'],$order['order_date'], 'days');}else{echo 0;}?>
+                                                        </strong>
+                                                        Since Arrived: <strong>
+                                                            <?php $date=$override->getNews('lens_order_status','order_id', $order['id'],'order_status', 3);
+                                                            if($date){echo $user->dateDifference($date[0]['status_date'],$order['order_date'], 'days');}else{ echo 0;}?>
+                                                        </strong>
+                                                        Since Delivered: <strong>
+                                                            <?php $date=$override->getNews('lens_order_status','order_id', $order['id'],'order_status', 4);
+                                                            if($date){echo $user->dateDifference($date[0]['status_date'],$order['order_date'], 'days');}else{echo 0;}?>
+                                                        </strong>
+                                                    </td>
                                                     <?php $os = $override->get('order_status','order_id',$order['id']);
                                                     if($os[0]['status'] == 0){?>
                                                         <td><span class="label label-danger">Processing</span></td>
@@ -1132,6 +1169,14 @@ if($user->isLoggedIn()){
                                                                     </div>
                                                                     <h4>&nbsp;</h4>
                                                                     <h4>Change Order Status</h4>
+                                                                    <h4>&nbsp;</h4>
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" value="<?=$os[0]['id']?>" name="id">
+                                                                        <label class="col-md-2 control-label">Date : </label>
+                                                                        <div class="col-md-10">
+                                                                            <input name="status_date" type="text" class="form-control datepicker" placeholder="DATE">
+                                                                        </div>
+                                                                    </div>
                                                                     <h4>&nbsp;</h4>
                                                                     <div class="form-group">
                                                                         <input type="hidden" value="<?=$os[0]['id']?>" name="id">

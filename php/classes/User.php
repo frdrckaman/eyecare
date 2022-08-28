@@ -38,6 +38,24 @@ public function __construct($user = null){
             return true;
         }
     }
+    function dateDifference($date1, $date2, $type, $num=null){
+        $diff = abs(strtotime($date2) - strtotime($date1));
+        $years = floor($diff / (60 * 60 * 24));
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+        $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+        switch ($type){
+            case 'days':
+                $num=$days;
+                break;
+            case 'months':
+                $num=$months;
+                break;
+            case 'years':
+                $num=$years;
+                break;
+        }
+        return number_format($years);
+    }
     public function countWords($message,$noUser){
         return ceil((mb_strlen($message))/160) * $noUser;
     }

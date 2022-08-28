@@ -474,7 +474,7 @@ if($user->isLoggedIn()){
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-offset-1 col-md-10">
-                                                <label>Auto Ref</label>
+                                                <label>OBJECTIVE REFRACTION (Auto Ref)</label>
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered">
                                                         <thead>
@@ -511,7 +511,7 @@ if($user->isLoggedIn()){
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-offset-1 col-md-10">
-                                                <label>RX</label>
+                                                <label>SUBJECTIVE REFRACTION (RX)</label>
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered">
                                                         <thead>
@@ -596,36 +596,36 @@ if($user->isLoggedIn()){
                                             </div>
                                         </div>
                                         <!-- Start Fundus -->
-                                        <hr><h2>FUNDUS</h2>
-                                        <div class="form-group">
-                                            <label class="col-md-1 control-label">CD Ration:&nbsp;&nbsp;</label>
-                                            <div class="col-md-offset-0 col-md-5">
-                                                <input type="text" name="f_od" class="form-control" placeholder="OD:">
-                                            </div>
-                                            <label class="col-md-1 control-label"></label>
-                                            <div class="col-md-offset-0 col-md-5">
-                                                <input type="text" name="f_os" class="form-control" placeholder="OS:">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-1 control-label">Vessels:&nbsp;&nbsp;</label>
-                                            <div class="col-md-offset-0 col-md-10">
-                                                <input type="text" name="f_vessels" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-1 control-label">Macula:&nbsp;&nbsp;</label>
-                                            <div class="col-md-offset-0 col-md-10">
-                                                <input type="text" name="f_macula" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-1 control-label">Peripheral retina:&nbsp;&nbsp;</label>
-                                            <div class="col-md-offset-0 col-md-10">
-                                                <textarea name="f_retina" class="form-control" rows="5" placeholder=""></textarea>
-                                            </div>
-                                        </div>
-                                        <hr>
+<!--                                        <hr><h2>FUNDUS</h2>-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="col-md-1 control-label">CD Ration:&nbsp;&nbsp;</label>-->
+<!--                                            <div class="col-md-offset-0 col-md-5">-->
+<!--                                                <input type="text" name="f_od" class="form-control" placeholder="OD:">-->
+<!--                                            </div>-->
+<!--                                            <label class="col-md-1 control-label"></label>-->
+<!--                                            <div class="col-md-offset-0 col-md-5">-->
+<!--                                                <input type="text" name="f_os" class="form-control" placeholder="OS:">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="col-md-1 control-label">Vessels:&nbsp;&nbsp;</label>-->
+<!--                                            <div class="col-md-offset-0 col-md-10">-->
+<!--                                                <input type="text" name="f_vessels" class="form-control" placeholder="">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="col-md-1 control-label">Macula:&nbsp;&nbsp;</label>-->
+<!--                                            <div class="col-md-offset-0 col-md-10">-->
+<!--                                                <input type="text" name="f_macula" class="form-control" placeholder="">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="col-md-1 control-label">Peripheral retina:&nbsp;&nbsp;</label>-->
+<!--                                            <div class="col-md-offset-0 col-md-10">-->
+<!--                                                <textarea name="f_retina" class="form-control" rows="5" placeholder=""></textarea>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <hr>-->
                                         <!-- End Fundus -->
                                         <div class="form-group">
                                             <div class="col-md-offset-1 col-md-10">
