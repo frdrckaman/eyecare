@@ -67,7 +67,7 @@ if(!$user->isLoggedIn()) {
     
 <head>
         <!-- META SECTION -->
-        <title>Family Eye Care | Login </title>
+        <title>Eye Clinic | Login </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -84,7 +84,7 @@ if(!$user->isLoggedIn()) {
         <div class="login-container">
         
             <div class="login-box animated fadeInDown">
-                <div class="login-logo"></div>
+<!--                <div class="login-logo"></div>-->
                 <?php if($successMessage){?>
                     <div class="alert alert-success" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -124,7 +124,7 @@ if(!$user->isLoggedIn()) {
                 </div>
                 <div class="login-footer">
                     <div class="pull-left">
-                        &copy; 2018 Family Eye Care
+                        &copy; 2022 frdrck
                     </div>
                     <div class="pull-right">
                         <a href="#">About</a> |

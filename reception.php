@@ -83,7 +83,7 @@ if($user->isLoggedIn()){
 
 <head>
     <!-- META SECTION -->
-    <title>Family Eye Care | Reception Panel</title>
+    <title>Eye Clinic | Reception Panel</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
