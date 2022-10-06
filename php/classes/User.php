@@ -251,8 +251,9 @@ public function __construct($user = null){
   }
   public function logout(){
       $this->_db->delete('user_session', array('user_id', '=', $this->data()->id));
-      Session::delete($this->_sessionName);
-      Cookie::delete($this->_cookieName);
+      session_destroy();
+//      Session::delete($this->_sessionName);
+//      Cookie::delete($this->_cookieName);
   }
   public function data(){
   	return $this->_data;
