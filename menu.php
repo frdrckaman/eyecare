@@ -53,7 +53,7 @@ $override = new OverideData();
         <a href="#"><span class="fa fa-bank"></span> <span class="xn-text">Infrastructures</span></a>
         <ul>
             <li><a href="#"><span class="fa fa-plus-square-o"></span>Add Equipment</a></li>
-            <li><a href="$"><span class="fa fa-users"></span>View Properties</a></li>
+            <li><a href="#"><span class="fa fa-users"></span>View Properties</a></li>
         </ul>
     </li>
     <li class="xn-openable">
