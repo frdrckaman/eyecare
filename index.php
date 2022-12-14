@@ -124,7 +124,7 @@ if(!$user->isLoggedIn()) {
                 </div>
                 <div class="login-footer">
                     <div class="pull-left">
-                        &copy; 2022 frdrck
+                        &copy; <?=date('Y')?>
                     </div>
                     <div class="pull-right">
                         <a href="#">About</a> |
