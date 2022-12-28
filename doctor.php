@@ -397,69 +397,69 @@ if($user->isLoggedIn()){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="col-md-offset-1 col-md-10">
-                                                <label></label>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                        <tr>
-                                                            <th><strong>EXTERNAL EYE EXAMINATION</strong></th>
-                                                            <th><strong>RIGHT</strong></th>
-                                                            <th><strong>RIGHT</strong></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>EYE LASHES</td>
-                                                            <td><input type="text" name="r_eye_lashes" class="form-control"></td>
-                                                            <td><input type="text" name="l_eye_lashes" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>LID</td>
-                                                            <td><input type="text" name="r_lid" class="form-control"></td>
-                                                            <td><input type="text" name="l_lid" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>CONJUCTIVA</td>
-                                                            <td><input type="text" name="r_conjuctiva" class="form-control"></td>
-                                                            <td><input type="text" name="l_conjactiva" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>SCLERA</td>
-                                                            <td><input type="text" name="r_sclera" class="form-control"></td>
-                                                            <td><input type="text" name="l_sclera" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>CORNEA</td>
-                                                            <td><input type="text" name="r_cornea" class="form-control"></td>
-                                                            <td><input type="text" name="l_cornea" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>PUPIL</td>
-                                                            <td><input type="text" name="r_pupil" class="form-control"></td>
-                                                            <td><input type="text" name="l_pupil" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>A/C ANGLE</td>
-                                                            <td><input type="text" name="r_angle" class="form-control"></td>
-                                                            <td><input type="text" name="l_angle" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>IRIS</td>
-                                                            <td><input type="text" name="r_iris" class="form-control"></td>
-                                                            <td><input type="text" name="l_iris" class="form-control"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>LENS</td>
-                                                            <td><input type="text" name="r_lens" class="form-control"></td>
-                                                            <td><input type="text" name="l_lens" class="form-control"></td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+<!--                                        <div class="form-group">-->
+<!--                                            <div class="col-md-offset-1 col-md-10">-->
+<!--                                                <label></label>-->
+<!--                                                <div class="table-responsive">-->
+<!--                                                    <table class="table table-bordered">-->
+<!--                                                        <thead>-->
+<!--                                                        <tr>-->
+<!--                                                            <th><strong>EXTERNAL EYE EXAMINATION</strong></th>-->
+<!--                                                            <th><strong>RIGHT</strong></th>-->
+<!--                                                            <th><strong>RIGHT</strong></th>-->
+<!--                                                        </tr>-->
+<!--                                                        </thead>-->
+<!--                                                        <tbody>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>EYE LASHES</td>-->
+<!--                                                            <td><input type="text" name="r_eye_lashes" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_eye_lashes" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>LID</td>-->
+<!--                                                            <td><input type="text" name="r_lid" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_lid" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>CONJUCTIVA</td>-->
+<!--                                                            <td><input type="text" name="r_conjuctiva" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_conjactiva" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>SCLERA</td>-->
+<!--                                                            <td><input type="text" name="r_sclera" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_sclera" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>CORNEA</td>-->
+<!--                                                            <td><input type="text" name="r_cornea" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_cornea" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>PUPIL</td>-->
+<!--                                                            <td><input type="text" name="r_pupil" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_pupil" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>A/C ANGLE</td>-->
+<!--                                                            <td><input type="text" name="r_angle" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_angle" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>IRIS</td>-->
+<!--                                                            <td><input type="text" name="r_iris" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_iris" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td>LENS</td>-->
+<!--                                                            <td><input type="text" name="r_lens" class="form-control"></td>-->
+<!--                                                            <td><input type="text" name="l_lens" class="form-control"></td>-->
+<!--                                                        </tr>-->
+<!--                                                        </tbody>-->
+<!--                                                    </table>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                         <div class="form-group">
                                             <label class="col-md-1"></label>
                                             <div class="col-md-4">

@@ -1577,13 +1577,13 @@ if($user->isLoggedIn()){
                                 <input name="payment" type="text" class="form-control" placeholder="" value="">
                             </div>
                         </div>
-                        <!--<div class="form-group">
+                        <div class="form-group">
                             <div class="form-group">
                                 <div class="col-md-offset-0 col-md-4">
                                     <label class="check"><input type="checkbox" class="" name="dscnt" id="discount" value="1"/> <strong>Give Discount</strong> </label>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                         <div id="ds" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/AjaxLoader.gif' width="32" height="32" /><br>Loading..</div>
                         <div id="disc"></div>
                     <?php }?>

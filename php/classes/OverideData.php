@@ -298,4 +298,7 @@ class OverideData{
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    function deleteAll($table){
+        $query = $this->_pdo->query("DELETE FROM $table ");
+    }
 }

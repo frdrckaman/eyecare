@@ -297,20 +297,20 @@ if($user->isLoggedIn()){
                         <td>
                             <table class="table table-bordered">
                                 <tr>
-                                    <td><input name="v_re" type="text" class="form-control" value="<?=$info[0]['V_RE']?>" disabled/></td>
+                                    <td><input name="v_re" type="text" class="form-control" value="<?=$info[0]['V_RE']?>" /></td>
                                 </tr>
                                 <tr>
-                                    <td><input name="v_re" type="text" class="form-control" value="<?=$info[0]['PH_RE']?>" disabled/></td>
+                                    <td><input name="v_le" type="text" class="form-control" value="<?=$info[0]['V_LE']?>" /></td>
                                 </tr>
                             </table>
                         </td>
                         <td>
                             <table class="table table-bordered">
                                 <tr>
-                                    <td><input name="ph_re" type="text" class="form-control" value="<?=$info[0]['V_LE']?>" disabled/></td>
+                                    <td><input name="ph_re" type="text" class="form-control" value="<?=$info[0]['PH_RE']?>" /></td>
                                 </tr>
                                 <tr>
-                                    <td><input name="ph_le" type="text" class="form-control" value="<?=$info[0]['PH_LE']?>" disabled/></td>
+                                    <td><input name="ph_le" type="text" class="form-control" value="<?=$info[0]['PH_LE']?>" /></td>
                                 </tr>
                             </table>
                         </td>
@@ -318,8 +318,8 @@ if($user->isLoggedIn()){
                     <tr>
                         <td><strong>NEAR  V/A</strong></td>
                         <td><strong>UNAIDED  V/A</strong></td>
-                        <td><input name="un_re" type="text" class="form-control" value="<?=$info[0]['UN_RE']?>" disabled/></td>
-                        <td><input name="un_le" type="text" class="form-control" value="<?=$info[0]['UN_LE']?>" disabled/></td>
+                        <td><input name="un_re" type="text" class="form-control" value="<?=$info[0]['UN_RE']?>" /></td>
+                        <td><input name="un_le" type="text" class="form-control" value="<?=$info[0]['UN_LE']?>" /></td>
                     </tr>
                     </tbody>
                 </table>
@@ -461,55 +461,55 @@ if($user->isLoggedIn()){
             <textarea name="internal_exam" class="form-control" rows="5" placeholder="Internal Examination Dilated/Undilated:"><?=$info[0]['internal_exam']?></textarea>
         </div>
     </div>
-    <hr><h2>FUNDUS</h2>
-    <div class="form-group">
-        <label class="col-md-1 control-label">CD Ration:&nbsp;&nbsp;</label>
-        <div class="col-md-offset-0 col-md-5">
-            <input type="text" name="f_od" class="form-control" placeholder="OD:" value="<?=$info[0]['f_od']?>">
-        </div>
-        <label class="col-md-1 control-label"></label>
-        <div class="col-md-offset-0 col-md-5">
-            <input type="text" name="f_os" class="form-control" placeholder="OS:" value="<?=$info[0]['f_os']?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">Vessels:&nbsp;&nbsp;</label>
-        <div class="col-md-offset-0 col-md-10">
-            <input type="text" name="f_vessels" class="form-control" placeholder="" value="<?=$info[0]['f_vessels']?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">Macula:&nbsp;&nbsp;</label>
-        <div class="col-md-offset-0 col-md-10">
-            <input type="text" name="f_macula" class="form-control" placeholder="" value="<?=$info[0]['f_macula']?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-1 control-label">Peripheral retina:&nbsp;&nbsp;</label>
-        <div class="col-md-offset-0 col-md-10">
-            <textarea name="f_retina" class="form-control" rows="5" placeholder=""><?=$info[0]['f_retina']?></textarea>
-        </div>
-    </div>
-    <hr>
-    <div class="form-group">
-        <div class="col-md-offset-1 col-md-10">
-            <label style="color: #009900;font-weight: bolder">Previous Diagnosis: <?php foreach($override->get('diagnosis_prescription','checkup_id',$info[0]['id']) as $d){$dg=$override->get('diagnosis','id',$d['diagnosis_id']);echo$dg[0]['name'].' , ';}?></label>
-        </div>
-        <div class="col-md-offset-1 col-md-10">
-            <select name="diagnosis[]" class="form-control select" multiple data-live-search="true" title="Diagnosis: ">
-                <?php foreach($override->getData('diagnosis') as $diagnosis){?>
-                    <option value="<?=$diagnosis['id']?>"><?=$diagnosis['name']?></option>
-                <?php }?>
-            </select>
-        </div>
-    </div>
+<!--    <hr><h2>FUNDUS</h2>-->
+<!--    <div class="form-group">-->
+<!--        <label class="col-md-1 control-label">CD Ration:&nbsp;&nbsp;</label>-->
+<!--        <div class="col-md-offset-0 col-md-5">-->
+<!--            <input type="text" name="f_od" class="form-control" placeholder="OD:" value="--><?//=$info[0]['f_od']?><!--">-->
+<!--        </div>-->
+<!--        <label class="col-md-1 control-label"></label>-->
+<!--        <div class="col-md-offset-0 col-md-5">-->
+<!--            <input type="text" name="f_os" class="form-control" placeholder="OS:" value="--><?//=$info[0]['f_os']?><!--">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label class="col-md-1 control-label">Vessels:&nbsp;&nbsp;</label>-->
+<!--        <div class="col-md-offset-0 col-md-10">-->
+<!--            <input type="text" name="f_vessels" class="form-control" placeholder="" value="--><?//=$info[0]['f_vessels']?><!--">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label class="col-md-1 control-label">Macula:&nbsp;&nbsp;</label>-->
+<!--        <div class="col-md-offset-0 col-md-10">-->
+<!--            <input type="text" name="f_macula" class="form-control" placeholder="" value="--><?//=$info[0]['f_macula']?><!--">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label class="col-md-1 control-label">Peripheral retina:&nbsp;&nbsp;</label>-->
+<!--        <div class="col-md-offset-0 col-md-10">-->
+<!--            <textarea name="f_retina" class="form-control" rows="5" placeholder="">--><?//=$info[0]['f_retina']?><!--</textarea>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <hr>-->
+<!--    <div class="form-group">-->
+<!--        <div class="col-md-offset-1 col-md-10">-->
+<!--            <label style="color: #009900;font-weight: bolder">Previous Diagnosis: --><?php //foreach($override->get('diagnosis_prescription','checkup_id',$info[0]['id']) as $d){$dg=$override->get('diagnosis','id',$d['diagnosis_id']);echo$dg[0]['name'].' , ';}?><!--</label>-->
+<!--        </div>-->
+<!--        <div class="col-md-offset-1 col-md-10">-->
+<!--            <select name="diagnosis[]" class="form-control select" multiple data-live-search="true" title="Diagnosis: ">-->
+<!--                --><?php //foreach($override->getData('diagnosis') as $diagnosis){?>
+<!--                    <option value="--><?//=$diagnosis['id']?><!--">--><?//=$diagnosis['name']?><!--</option>-->
+<!--                --><?php //}?>
+<!--            </select>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div class="form-group">
         <div class="col-md-offset-1 col-md-2">
-            <label class="check"><input name="distance_glasses" type="checkbox" value="Distance Glasses" class="icheckbox"/> Distance Glasses</label>
+            <label class="check"><input name="distance_glasses" type="checkbox" value="Distance Glasses" class="icheckbox" <?php if($info[0]['distance_glasses']){echo 'checked';}?> /> Distance Glasses</label>
         </div>
         <div class="col-md-2">
-            <label class="check"><input name="reading_glasses" type="checkbox" value="Reading Glasses" class="icheckbox"/> Reading Glasses</label>
+            <label class="check"><input name="reading_glasses" type="checkbox" value="Reading Glasses" class="icheckbox" <?php if($info[0]['reading_glasses']){echo 'checked';}?>/> Reading Glasses</label>
         </div>
         <label class="col-md-12"></label><label class="col-md-12"></label>
 
@@ -741,44 +741,7 @@ if($user->isLoggedIn()){
 </script>
 
 <!-- END SCRIPTS -->
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','../../../../www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-36783416-1', 'auto');
-    ga('send', 'pageview');
-</script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter25836617 = new Ya.Metrika({
-                    id:25836617,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true
-                });
-            } catch(e) { }
-        });
-
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "../../../../mc.yandex.ru/metrika/watch.js";
-
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/25836617" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </body>
 
 </html>

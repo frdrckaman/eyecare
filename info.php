@@ -297,6 +297,9 @@ if($user->isLoggedIn()) {
                     $pageError = $validate->errors();
                 }
             }
+            elseif (Input::get('wa_list')){
+                $override->deleteAll('wait_list');
+            }
             elseif($_GET['id'] == 20){
                 if(Input::get('searchPatient')){
                     $validate = new validate();
@@ -977,7 +980,7 @@ if($user->isLoggedIn()) {
                             </div>
                         </div>
                     <?php }
-                    elseif($_GET['id'] == 20 && $user->data()->access_level == 2){$heading ='SEARCH PATIENT RECORDS'?>
+                    elseif($_GET['id'] == 20){$heading ='SEARCH PATIENT RECORDS'?>
                         <div class="container">
                             <form role="form" class="form-horizontal" method="post">
                                 <div class="form-group">
@@ -1056,28 +1059,106 @@ if($user->isLoggedIn()) {
                                                     <th>Age</th>
                                                     <th>Occupation</th>
                                                     <th>Checkup Date</th>
-                                                    <th>Action Performed</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php $x=0;if($searchValue){foreach($searchValue as $patient){$medRec=$override->get('checkup_record','patient_id',$patient['id']);if($medRec){?>
                                                     <tr>
-                                                        <td><?=$patient['firstname'].' '.$patient['lastname']?></td>
+                                                        <td><a href="info.php?id=24&p=<?=$patient['id']?>&c=<?=$medRec[0]['id']?>"><?=$patient['firstname'].' '.$patient['lastname']?></a> </td>
                                                         <td><?=$patient['id']?></td>
                                                         <td><?=$patient['sex']?></td>
                                                         <td><?=$patient['age']?></td>
                                                         <td><?=$patient['occupation']?></td>
                                                         <td><?=$medRec[0]['checkup_date']?></td>
+
+                                                    </tr>
+
+                                                <?php }$x++;}}?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                    elseif($_GET['id'] == 24) { ?>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title-box">
+                                    <h3><?=$heading?></h3>
+                                    <span></span>
+                                </div>
+                                <ul class="panel-controls" style="margin-top: 2px;">
+                                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
+                                            <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="panel-body padding-0">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"></h3>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'json',escape:'false'});"><img src='img/icons/json.png' width="24"/> JSON</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'json',escape:'false',ignoreColumn:'[2,3]'});"><img src='img/icons/json.png' width="24"/> JSON (ignoreColumn)</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'json',escape:'true'});"><img src='img/icons/json.png' width="24"/> JSON (with Escape)</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'xml',escape:'false'});"><img src='img/icons/xml.png' width="24"/> XML</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'sql'});"><img src='img/icons/sql.png' width="24"/> SQL</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'csv',escape:'false'});"><img src='img/icons/csv.png' width="24"/> CSV</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'txt',escape:'false'});"><img src='img/icons/txt.png' width="24"/> TXT</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'excel',escape:'false'});"><img src='img/icons/xls.png' width="24"/> XLS</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'doc',escape:'false'});"><img src='img/icons/word.png' width="24"/> Word</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'powerpoint',escape:'false'});"><img src='img/icons/ppt.png' width="24"/> PowerPoint</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'png',escape:'false'});"><img src='img/icons/png.png' width="24"/> PNG</a></li>
+                                                <li><a href="#" onClick ="$('#customers2').tableExport({type:'pdf',escape:'false'});"><img src='img/icons/pdf.png' width="24"/> PDF</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table id="customers2" class="table datatable table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Checkup Date</th>
+                                                    <th>Action Performed</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach($override->getSort('checkup_record','patient_id',$_GET['p'], 'checkup_date') as $medRec){?>
+                                                    <tr>
+                                                        <td><?=$medRec['checkup_date']?></td>
                                                         <td>
                                                             <form method="post">
-                                                                <a href="#modal<?=$x?>" class="btn btn-default btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-info"></span></a>
-                                                                <a href="#lens<?=$x?>" class="btn btn-default btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-eye"></span></a>
-                                                                <a href="#med<?=$x?>" class="btn btn-default btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-medkit"></span></a>
-                                                                <a href="editInfo.php?id=0&p=<?=$medRec[0]['id']?>&n=" class="btn btn-default btn-rounded btn-condensed btn-sm" ><span class="fa fa-pencil"></span></a>
+                                                                <?php if ($user->data()->access_level == 2){?>
+                                                                    <a href="#modal-info<?=$x?>" class="btn btn-default btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-info"></span></a>
+                                                                    <a href="#lens<?=$x?>" class="btn btn-default btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-eye"></span></a>
+                                                                    <a href="#med<?=$x?>" class="btn btn-default btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-medkit"></span></a>
+                                                                    <a href="editInfo.php?id=0&p=<?=$medRec['id']?>&n=" class="btn btn-default btn-rounded btn-condensed btn-sm" ><span class="fa fa-pencil"></span></a>
+                                                                <?php }?>
+                                                                <?php if ($user->data()->access_level == 3){?>
+                                                                    <a href="form.php?id=0&p=<?=$_GET['p']?>&c=<?=$_GET['c']?>" class="btn btn-default btn-rounded btn-condensed btn-sm" > Cash </a>
+                                                                    <a href="form.php?id=1&p=<?=$_GET['p']?>&c=<?=$_GET['c']?>" class="btn btn-default btn-rounded btn-condensed btn-sm" > Insurance </a>
+                                                                <?php }?>
                                                             </form>
                                                         </td>
                                                     </tr>
-                                                    <div class="modal" id="modal<?=$x?>" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+                                                    <?php if ($user->data()->access_level == 2){?><?php }?>
+                                                    <div class="modal" id="modal-info<?=$x?>" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -1089,112 +1170,112 @@ if($user->isLoggedIn()) {
                                                                         <div class="form-group">
                                                                             <label class="col-md-1 control-label"></label>
                                                                             <div class="col-md-10">
-                                                                                <textarea name="cc" class="form-control" rows="1" disabled>CC : <?=$medRec[0]['CC']?></textarea>
+                                                                                <textarea name="cc" class="form-control" rows="1" disabled>CC : <?=$medRec['CC']?></textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-2"></label>
                                                                             <div class="col-md-2">
-                                                                                <input name="oh" type="text" class="form-control" value="OH: <?=$medRec[0]['OH']?>" disabled>
+                                                                                <input name="oh" type="text" class="form-control" value="OH: <?=$medRec['OH']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="gh" type="text" class="form-control" value="GH: <?=$medRec[0]['GH']?>" disabled>
+                                                                                <input name="gh" type="text" class="form-control" value="GH: <?=$medRec['GH']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="foh" type="text" class="form-control" value="FOH: <?=$medRec[0]['FOH']?>" disabled>
+                                                                                <input name="foh" type="text" class="form-control" value="FOH: <?=$medRec['FOH']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-3">
-                                                                                <input name="fgh" type="text" class="form-control" value="FGH: <?=$medRec[0]['FGH']?>" disabled>
+                                                                                <input name="fgh" type="text" class="form-control" value="FGH: <?=$medRec['FGH']?>" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-2"></label>
                                                                             <div class="col-md-2">
-                                                                                <input name="nfc" type="text" class="form-control" value="NPC: <?=$medRec[0]['NPC']?>" disabled>
+                                                                                <input name="nfc" type="text" class="form-control" value="NPC: <?=$medRec['NPC']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="eom" type="text" class="form-control" value="EOM: <?=$medRec[0]['EOM']?>" disabled>
+                                                                                <input name="eom" type="text" class="form-control" value="EOM: <?=$medRec['EOM']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="pupils" type="text" class="form-control" value="Pupils: <?=$medRec[0]['pupils']?>" disabled>
+                                                                                <input name="pupils" type="text" class="form-control" value="Pupils: <?=$medRec['pupils']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-3">
-                                                                                <input name="confrontation" type="text" class="form-control" value="Confrontation: <?=$medRec[0]['confrontation']?>" disabled>
+                                                                                <input name="confrontation" type="text" class="form-control" value="Confrontation: <?=$medRec['confrontation']?>" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-offset-1 col-md-1"></label>
                                                                             <div class="col-md-2">
-                                                                                <input name="re" type="text" class="form-control" value="V_RE: <?=$medRec[0]['V_RE']?>" disabled>
+                                                                                <input name="re" type="text" class="form-control" value="V_RE: <?=$medRec['V_RE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="le" type="text" class="form-control" value="V_LE: <?=$medRec[0]['V_LE']?>" disabled>
+                                                                                <input name="le" type="text" class="form-control" value="V_LE: <?=$medRec['V_LE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="ph" type="text" class="form-control" value="PH_RE: <?=$medRec[0]['PH_RE']?>" disabled>
+                                                                                <input name="ph" type="text" class="form-control" value="PH_RE: <?=$medRec['PH_RE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="ph" type="text" class="form-control" value="PH_LE: <?=$medRec[0]['PH_LE']?>" disabled>
+                                                                                <input name="ph" type="text" class="form-control" value="PH_LE: <?=$medRec['PH_LE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="pd" type="text" class="form-control" value="PD: <?=$medRec[0]['PD']?>" disabled>
+                                                                                <input name="pd" type="text" class="form-control" value="PD: <?=$medRec['PD']?>" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <!--Auto Ref and Rx goes Here-->
                                                                         <div class="form-group">
                                                                             <div class="col-md-offset-1 col-md-10">
-                                                                                <textarea name="ext_oc_exam" class="form-control" rows="1" placeholder="External Ocular Examination: <?=$medRec[0]['external_ocular_exam']?>" disabled></textarea>
+                                                                                <textarea name="ext_oc_exam" class="form-control" rows="1" placeholder="External Ocular Examination: <?=$medRec['external_ocular_exam']?>" disabled></textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-2"></label>
                                                                             <div class="col-md-3">
-                                                                                <input name="iop" type="text" class="form-control" value="IOP: <?=$medRec[0]['IOP']?>" disabled>
+                                                                                <input name="iop" type="text" class="form-control" value="IOP: <?=$medRec['IOP']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="iop_re" type="text" class="form-control" value="RE: <?=$medRec[0]['IOP_RE']?>" disabled>
+                                                                                <input name="iop_re" type="text" class="form-control" value="RE: <?=$medRec['IOP_RE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="iop_le" type="text" class="form-control" value="LE: <?=$medRec[0]['IOP_LE']?>" disabled>
+                                                                                <input name="iop_le" type="text" class="form-control" value="LE: <?=$medRec['IOP_LE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="iop_time" type="text" class="form-control" value="Time: <?=$medRec[0]['IOP_time']?>" disabled>
+                                                                                <input name="iop_time" type="text" class="form-control" value="Time: <?=$medRec['IOP_time']?>" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-md-2"></label>
                                                                             <div class="col-md-3">
-                                                                                <input name="iop_post_dilation" type="text" class="form-control" value="IOP:POST Dilation <?=$medRec[0]['IOP_POST_dilation']?>" disabled>
+                                                                                <input name="iop_post_dilation" type="text" class="form-control" value="IOP:POST Dilation <?=$medRec['IOP_POST_dilation']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="iop_post_re" type="text" class="form-control" value="RE: <?=$medRec[0]['IOP_POST_RE']?>" disabled>
+                                                                                <input name="iop_post_re" type="text" class="form-control" value="RE: <?=$medRec['IOP_POST_RE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="iop_post_le" type="text" class="form-control" value="LE: <?=$medRec[0]['IOP_POST_LE']?>" disabled>
+                                                                                <input name="iop_post_le" type="text" class="form-control" value="LE: <?=$medRec['IOP_POST_LE']?>" disabled>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <input name="iop_post_time" type="text" class="form-control" value="Time: <?=$medRec[0]['IOP_POST_time']?>" disabled>
+                                                                                <input name="iop_post_time" type="text" class="form-control" value="Time: <?=$medRec['IOP_POST_time']?>" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div class="col-md-offset-1 col-md-10">
-                                                                                <input type="text" name="mydriatic_agent_used" class="form-control" value="Mydriatic Agent used: <?=$medRec[0]['mydriatic_agent_used']?>" disabled>
+                                                                                <input type="text" name="mydriatic_agent_used" class="form-control" value="Mydriatic Agent used: <?=$medRec['mydriatic_agent_used']?>" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div class="col-md-offset-1 col-md-10">
-                                                                                <textarea name="internal_exam" class="form-control" rows="1" placeholder="Internal Examination Dilated/Undilated: <?=$medRec[0]['internal_exam']?>" disabled></textarea>
+                                                                                <textarea name="internal_exam" class="form-control" rows="1" placeholder="Internal Examination Dilated/Undilated: <?=$medRec['internal_exam']?>" disabled></textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div class="col-md-offset-1 col-md-10">
-                                                                                <textarea name="diagnosis" class="form-control" rows="1" placeholder="Diagnosis: <?=$medRec[0]['diagnosis']?>" disabled>Diagnosis: <?php foreach($override->get('diagnosis_prescription','checkup_id',$medRec[0]['id']) as $d){$dg=$override->get('diagnosis','id',$d['diagnosis_id']);echo$dg[0]['name'].' , ';}?></textarea>
+                                                                                <textarea name="diagnosis" class="form-control" rows="1" placeholder="Diagnosis: <?=$medRec['diagnosis']?>" disabled>Diagnosis: <?php foreach($override->get('diagnosis_prescription','checkup_id',$medRec['id']) as $d){$dg=$override->get('diagnosis','id',$d['diagnosis_id']);echo$dg[0]['name'].' , ';}?></textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div class="col-md-offset-1 col-md-10">
-                                                                                <?php $test=$override->get('test_list','id',$medRec[0]['other_test'])?>
-                                                                                <textarea name="" class="form-control" placeholder="Test Performed: <?=$test[0]['name']?>" disabled>Test Performed: <?php foreach($override->get('test_performed','checkup_id',$medRec[0]['id']) as $tst){$t=$override->get('test_list','id',$tst['test_id']);echo$t[0]['name'].' , ';}?></textarea>
+                                                                                <?php $test=$override->get('test_list','id',$medRec['other_test'])?>
+                                                                                <textarea name="" class="form-control" placeholder="Test Performed: <?=$test[0]['name']?>" disabled>Test Performed: <?php foreach($override->get('test_performed','checkup_id',$medRec['id']) as $tst){$t=$override->get('test_list','id',$tst['test_id']);echo$t[0]['name'].' , ';}?></textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
@@ -1236,19 +1317,19 @@ if($user->isLoggedIn()) {
                                                                                 <div class="col-md-10">
                                                                                     <label class="col-md-2 control-label">RIGHT</label>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['ref_OD_sphere']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['ref_OD_sphere']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['ref_cyl']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['ref_cyl']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['ref_axis']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['ref_axis']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['ref_va']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['ref_va']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['ref_add']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['ref_add']?>" disabled/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1256,19 +1337,19 @@ if($user->isLoggedIn()) {
                                                                                 <div class="col-md-10">
                                                                                     <label class="col-md-2 control-label">LEFT</label>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_ref_OD_sphere']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_ref_OD_sphere']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_ref_cyl']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_ref_cyl']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_ref_axis']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_ref_axis']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_ref_va']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_ref_va']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_ref_add']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_ref_add']?>" disabled/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1290,19 +1371,19 @@ if($user->isLoggedIn()) {
                                                                                 <div class="col-md-10">
                                                                                     <label class="col-md-2 control-label">RIGHT</label>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['rx_OD_sphere']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['rx_OD_sphere']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['rx_cyl']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['rx_cyl']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['rx_axis']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['rx_axis']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['rx_va']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['rx_va']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['rx_add']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['rx_add']?>" disabled/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1310,19 +1391,19 @@ if($user->isLoggedIn()) {
                                                                                 <div class="col-md-10">
                                                                                     <label class="col-md-2 control-label">LEFT</label>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_rx_OS_sphere']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_rx_OS_sphere']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_rx_cyl']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_rx_cyl']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_rx_axis']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_rx_axis']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_rx_va']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_rx_va']?>" disabled/>
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <input type="text" class="form-control" value="<?=$medRec[0]['add_rx_add']?>" disabled/>
+                                                                                        <input type="text" class="form-control" value="<?=$medRec['add_rx_add']?>" disabled/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1330,7 +1411,7 @@ if($user->isLoggedIn()) {
                                                                         <h1>&nbsp;</h1><h1>&nbsp;</h1>
                                                                         <div class="col-md-offset-2 form-group">
                                                                             <div class="col-md-10">
-                                                                                <input type="text" class="form-control" value="Management : <?=$medRec[0]['distance_glasses'].' , '.$medRec[0]['reading_glasses']?>" disabled/>
+                                                                                <input type="text" class="form-control" value="Management : <?=$medRec['distance_glasses'].' , '.$medRec['reading_glasses']?>" disabled/>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1351,7 +1432,7 @@ if($user->isLoggedIn()) {
                                                                 <form method="post">
                                                                     <div class="modal-body">
                                                                         <div class="form-group">
-                                                                            <?php $medicines=$override->getNews('prescription','patient_id',$medRec[0]['patient_id'],'given_date',$medRec[0]['checkup_date']);
+                                                                            <?php $medicines=$override->getNews('prescription','patient_id',$medRec['patient_id'],'given_date',$medRec['checkup_date']);
                                                                             if($medicines){foreach($medicines as $medicine){$med=$override->get('medicine','id',$medicine['medicine_id'])?>
                                                                                 <div class="col-md-offset-1 col-md-10">
                                                                                     <input type="text" name="" class="form-control" placeholder="" value="<?=$med[0]['name']?>" disabled>
@@ -1371,7 +1452,10 @@ if($user->isLoggedIn()) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <?php }$x++;}}?>
+                                                    <?php if ($user->data()->access_level == 3){?>
+
+                                                    <?php }?>
+                                                    <?php $x++;}?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -2829,7 +2913,31 @@ if($user->isLoggedIn()) {
                             <div class="panel-heading">
                                 <h3 class="panel-title"><strong><?=$head?></strong></h3>
                                 <div class="btn-group pull-right">
-                                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
+                                    <form method="post">
+                                        <a href="#dl_wa_list" class="btn btn-danger btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-remove"> Delete All lIST</span></a>
+                                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
+                                        <div class="modal" id="dl_wa_list" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <h4 class="modal-title" id="defModalHead<?=$x?>">DELETE WAITING LIST</h4>
+                                                    </div>
+
+                                                        <div class="modal-body">
+                                                            <span style="color: #ff0000">
+                                                                <strong>ARE YOU SURE YOU WANT TO DELETE PATIENT WAITING LIST</strong>
+                                                            </span>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input type="submit" name="wa_list" value="DELETE" class="btn btn-danger" >
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <ul class="dropdown-menu">
                                         <li><a href="#" onClick ="$('#customers2').tableExport({type:'json',escape:'false'});"><img src='img/icons/json.png' width="24"/> JSON</a></li>
                                         <li><a href="#" onClick ="$('#customers2').tableExport({type:'json',escape:'false',ignoreColumn:'[2,3]'});"><img src='img/icons/json.png' width="24"/> JSON (ignoreColumn)</a></li>
@@ -3509,35 +3617,8 @@ if($user->isLoggedIn()) {
     ga('send', 'pageview');
 </script>
 
-<!-- Yandex.Metrika counter -->
-<!--<script type="text/javascript">
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter25836617 = new Ya.Metrika({
-                    id:25836617,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true
-                });
-            } catch(e) { }
-        });
+ -->
 
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "../../../../mc.yandex.ru/metrika/watch.js";
-
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/25836617" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </body>
 
 </html>
