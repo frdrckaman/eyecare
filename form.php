@@ -1456,7 +1456,7 @@ if($user->isLoggedIn()){
                             <option value=""><?=Input::get('lensType')?></option>
                         </select>
                     </div>
-                    <!--<div class="col-md-4">
+                    <div class="col-md-4">
                         <?php $powers=$override->getNews('lens_prescription','patient_id',$_GET['p'],'status',0)?>
                         <input type="text" name="power" value="<?php foreach($powers as $power){echo $power['eye'].' : '.$power['lens_power'].' , ';}?>" class="form-control" placeholder="Enter Lens Power">
                     </div>
