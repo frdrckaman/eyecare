@@ -33,8 +33,8 @@ if($len_prescription){
     $lensCat=$override->get('lens_category','id',$lensPrice[0]['cat_id']);
     $lensType=$override->get('lens_type','id',$lensPrice[0]['type_id']);
 }
-$checkupRecord=$override->getNews('checkup_record','patient_id',$_GET['id'],'checkup_date',$date);
-$testPerformed=$override->getNews('test_performed','patient_id',$_GET['id'],'date_performed',$_GET['date']);
+$checkupRecord=$override->getNews('checkup_record','patient_id',$_GET['pid'],'checkup_date',$date);
+$testPerformed=$override->getNews('test_performed','patient_id',$_GET['pid'],'date_performed',$_GET['date']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +72,7 @@ $testPerformed=$override->getNews('test_performed','patient_id',$_GET['id'],'dat
 <div class="x-chart-widget-content">
     <div class="row">
         <div class="col-md-12">
-            <?php if($_GET['c'] == 0){?>
+            <?php if($_GET['id'] == 0){?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h6>RECEIPT No. <strong><?=$payment[0]['id']?><span class="pull-right"><img src="img/famly%20eye%20care.png"></span></strong></h6>
@@ -148,7 +148,7 @@ $testPerformed=$override->getNews('test_performed','patient_id',$_GET['id'],'dat
                     </div>
                 </div>
             <?php }
-            elseif($_GET['c'] == 1){?>
+            elseif($_GET['id'] == 1){?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h6>RECEIPT No. <strong><?=$payment[0]['id']?><span class="pull-right"><img src="img/famly%20eye%20care.png"></span></strong></h6>
@@ -226,7 +226,7 @@ $testPerformed=$override->getNews('test_performed','patient_id',$_GET['id'],'dat
                     </div>
                 </div>
             <?php }
-            elseif($_GET['c'] == 2){?>
+            elseif($_GET['id'] == 2){?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h6>INVOICE No. <strong><?=$payment[0]['id']?><span class="pull-right"><img src="img/famly%20eye%20care.png"></span></strong></h6>

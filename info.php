@@ -1526,7 +1526,8 @@ if($user->isLoggedIn()) {
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php $x=0;foreach($override->getSort('payment','branch_id',$user->data()->branch_id,'pay_date') as $paymentId){?>
+                                                <?php $x=0;foreach($override->getSort('payment','branch_id',$user->data()->branch_id,'pay_date') as $paymentId){
+                                                    $checkup=$override->get('checkup_record', 'id', $paymentId['checkup_id'])[0]?>
                                                     <tr><?php $patient=$override->get('patient','id',$paymentId['patient_id'])?>
                                                         <td><?=$patient[0]['firstname'].' '.$patient[0]['lastname']?></td>
                                                         <td><?=$paymentId['id']?></td>
@@ -1543,8 +1544,8 @@ if($user->isLoggedIn()) {
                                                         <?php }?>
                                                         <td>
                                                             <form method="post">
-                                                                <a href="invoice.php?id=<?=$paymentId['patient_id']?>&c=1&date=<?=$paymentId['pay_date']?>" target="_blank" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-info"></span></a>
-                                                                <a href="invoice.php?id=<?=$paymentId['patient_id']?>&c=2&date=<?=$paymentId['pay_date']?>" target="_blank" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-medkit"></span></a>
+                                                                <a href="invoice.php?id=1&pid=<?=$paymentId['patient_id']?>&c=1&date=<?=$checkup['checkup_date']?>" target="_blank" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-info"></span></a>
+                                                                <a href="invoice.php?id=2&pid=<?=$paymentId['patient_id']?>&c=2&date=<?=$checkup['checkup_date']?>" target="_blank" class="btn btn-default btn-rounded btn-condensed btn-sm"><span class="fa fa-medkit"></span></a>
                                                             </form>
                                                         </td>
                                                     </tr>
