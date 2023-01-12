@@ -16,7 +16,11 @@ if($user->isLoggedIn()){
                 $checkupCost = $override->getNews('payment','patient_id',$_GET['p'],'status',0);
                 break;
             case 33:
-                $heading = 'RETURN PATIENT';
+                if($_GET['typ'] == 1){
+                    $heading = 'RETURN PATIENT';
+                }elseif($_GET['typ'] == 2){
+                    $heading = 'OUT PATIENT';
+                }
                 break;
             case 1:
                 $heading = 'INSURANCE PAYMENT';
@@ -841,6 +845,7 @@ if($user->isLoggedIn()){
                 }
             }
             elseif($_GET['id'] == 8){
+
                 if(Input::get('checkLens')){
                     /*$lensPrice=$override->getNews('lens_power','cat_id',Input::get('lens_cat'),'type_id',Input::get('lensType'));
                     $checkLens=$override->selectData('lens_power','cat_id',Input::get('lens_cat'),'type_id',Input::get('lensType'),'lens_id',Input::get('lensGroup'));
@@ -862,62 +867,69 @@ if($user->isLoggedIn()){
                                 'rx_axis' => Input::get('rx_axis'),
                                 'rx_va' => Input::get('rx_va'),
                                 'rx_add' => Input::get('rx_add'),
+                                'rx_va_2' => Input::get('rx_va_2'),
                                 'add_rx_OS_sphere' => Input::get('add_rx_os_sphere'),
                                 'add_rx_cyl' => Input::get('add_rx_cyl'),
                                 'add_rx_axis' => Input::get('add_rx_axis'),
                                 'add_rx_va' => Input::get('add_rx_va'),
                                 'add_rx_add' => Input::get('add_rx_add'),
+                                'add_rx_va_2' => Input::get('add_rx_va_2'),
                                 'checkup_date' => date('Y-m-d'),
                                 'patient_id' => Input::get('patient'),
                                 'branch_id' => $user->data()->branch_id
                             ));
 
-                            $getMedicine = array(Input::get('medicine'),Input::get('other_medicine'),Input::get('other_medicine_1'),Input::get('other_medicine_2'));
-                            $dosage = array(Input::get('dosage'),Input::get('other_dosage'),Input::get('other_dosage_1'),Input::get('other_dosage_2'));$f=0;
-                            foreach($getMedicine as $getMed){
-                                if($getMed == null){
+                            $checkup_id =$override->getNews('checkup_record','patient_id',Input::get('patient'),'checkup_date',date('Y-m-d'))[0];
 
-                                }else{
-                                    $user->createRecord('prescription',array(
-                                        'medicine_id' => $getMed,
-                                        'quantity' => $dosage[$f],
-                                        'given_date' => date('Y-m-d'),
-                                        'patient_id' => Input::get('patient'),
-                                        'doctor_id' => $user->data()->id,
-                                        'branch_id' => $user->data()->branch_id
-                                    ));
-                                }$f++;
-                            }
-                            if(Input::get('eye') == 'Both'){
-                                $user->createRecord('lens_prescription',array(
-                                    'lens_id' => Input::get('lens'),
-                                    'lens_power'=>Input::get('lens_power'),
-                                    'eye' =>Input::get('eye'),
-                                    'patient_id' => Input::get('patient'),
-                                    'checkup_date' => date('Y-m-d'),
-                                    'branch_id' => $user->data()->branch_id
-                                ));
-                            }elseif(Input::get('eye') == 'RE' || Input::get('eye') == 'LE'){
-                                $user->createRecord('lens_prescription',array(
-                                    'lens_id' => Input::get('lens'),
-                                    'lens_power'=>Input::get('lens_power'),
-                                    'eye' =>Input::get('eye'),
-                                    'patient_id' => Input::get('patient'),
-                                    'checkup_date' => date('Y-m-d'),
-                                    'branch_id' => $user->data()->branch_id
-                                ));$user->createRecord('lens_prescription',array(
-                                    'lens_id' => Input::get('other_lens'),
-                                    'lens_power'=>Input::get('other_power'),
-                                    'eye' =>Input::get('other_eye'),
-                                    'patient_id' => Input::get('patient'),
-                                    'checkup_date' => date('Y-m-d'),
-                                    'branch_id' => $user->data()->branch_id
-                                ));
-                            }$totalTest=0;
+//                            $getMedicine = array(Input::get('medicine'),Input::get('other_medicine'),Input::get('other_medicine_1'),Input::get('other_medicine_2'));
+//                            $dosage = array(Input::get('dosage'),Input::get('other_dosage'),Input::get('other_dosage_1'),Input::get('other_dosage_2'));$f=0;
+//                            foreach($getMedicine as $getMed){
+//                                if($getMed == null){
+//
+//                                }else{
+//                                    $user->createRecord('prescription',array(
+//                                        'medicine_id' => $getMed,
+//                                        'quantity' => $dosage[$f],
+//                                        'given_date' => date('Y-m-d'),
+//                                        'patient_id' => Input::get('patient'),
+//                                        'doctor_id' => $user->data()->id,
+//                                        'branch_id' => $user->data()->branch_id
+//                                    ));
+//                                }$f++;
+//                            }
+//                            if(Input::get('eye') == 'Both'){
+//                                $user->createRecord('lens_prescription',array(
+//                                    'lens_id' => Input::get('lens'),
+//                                    'lens_power'=>Input::get('lens_power'),
+//                                    'eye' =>Input::get('eye'),
+//                                    'patient_id' => Input::get('patient'),
+//                                    'checkup_date' => date('Y-m-d'),
+//                                    'branch_id' => $user->data()->branch_id
+//                                ));
+//                            }elseif(Input::get('eye') == 'RE' || Input::get('eye') == 'LE'){
+//                                $user->createRecord('lens_prescription',array(
+//                                    'lens_id' => Input::get('lens'),
+//                                    'lens_power'=>Input::get('lens_power'),
+//                                    'eye' =>Input::get('eye'),
+//                                    'patient_id' => Input::get('patient'),
+//                                    'checkup_date' => date('Y-m-d'),
+//                                    'branch_id' => $user->data()->branch_id
+//                                ));$user->createRecord('lens_prescription',array(
+//                                    'lens_id' => Input::get('other_lens'),
+//                                    'lens_power'=>Input::get('other_power'),
+//                                    'eye' =>Input::get('other_eye'),
+//                                    'patient_id' => Input::get('patient'),
+//                                    'checkup_date' => date('Y-m-d'),
+//                                    'branch_id' => $user->data()->branch_id
+//                                ));
+//                            }
+                            $totalTest=0;
                             $p=$override->get('patient','id',Input::get('patient'));
                             $user->createRecord('payment',array(
                                 'cost' => 0,
+                                'nw_vn' => 1,
                                 'checkup_date' => date('Y-m-d'),
+                                'checkup_id' => $checkup_id['id'],
                                 'patient_id' => Input::get('patient'),
                                 'branch_id' => $user->data()->branch_id
                             ));
@@ -1749,7 +1761,7 @@ if($user->isLoggedIn()){
                             <option value=""><?=Input::get('lensType')?></option>
                         </select>
                     </div>
-                    <!--<div class="col-md-4">
+                    <div class="col-md-4">
                         <?php $powers=$override->getNews('lens_prescription','patient_id',$_GET['p'],'status',0)?>
                         <input type="text" name="power" value="<?php foreach($powers as $power){echo $power['eye'].' : '.$power['lens_power'].' , ';}?>" class="form-control" placeholder="Enter Lens Power">
                     </div>
@@ -1953,9 +1965,13 @@ if($user->isLoggedIn()){
                                         <td><?=$patient['age']?></td>
                                         <td>
                                             <form method="post">
-                                                <input type="hidden" name="patient_name" value="<?=$patient['id']?>">
-                                                <input type="submit" name="sendDoctor" value="Send to Doctor" class="btn btn-info">
-                                                <a href="#modal<?=$x?>" class="btn btn-info btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-info-circle"></span></a>
+                                                <?php if($_GET['typ'] == 1){?>
+                                                    <input type="hidden" name="patient_name" value="<?=$patient['id']?>">
+                                                    <input type="submit" name="sendDoctor" value="Send to Doctor" class="btn btn-info">
+                                                    <a href="#modal<?=$x?>" class="btn btn-info btn-rounded btn-condensed btn-sm" data-toggle="modal" ><span class="fa fa-info-circle"></span></a>
+                                                <?php }elseif($_GET['typ'] == 2){?>
+                                                    <a href="form.php?id=8&pid=<?=$patient['id']?>" class="btn btn-info" >Out Patient</a>
+                                                <?php }?>
                                             </form>
                                         </td>
                                      </tr>
@@ -2532,20 +2548,20 @@ if($user->isLoggedIn()){
                 </div>
             <?php }
             elseif($_GET['id'] == 8 && $user->data()->access_level == 3){?>
+                <h3>OUT PATIENT </h3>
+
                 <div class="panel-body padding-0">
                 <div class="panel-body">
-                    <h3>Patient Prescription Information</h3>
                     <form class="form-horizontal" role="form" method="post">
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <select name="patient" class="form-control select" data-live-search="true">
-                                    <option value="<?=Input::get('patient')?>"><?php if(Input::get('checkLens')){$patient=$override->get('patient','id',Input::get('patient'))?><?=$patient[0]['firstname'].'  '.$patient[0]['lastname'].'  '.$patient[0]['phone_number']?><?php }else{?>Select Patient<?php }?> </option>
-                                    <?php foreach($override->getData('patient') as $patient){?>
-                                        <option value="<?=$patient['id']?>"><?=$patient['firstname'].'  '.$patient['lastname'].'  '.$patient['phone_number']?></option>
-                                    <?php }?>
-                                </select>
+                            <label class="col-md-1 control-label">Patient:&nbsp;&nbsp;</label>
+                            <div class="col-md-6">
+                                <?php $patient=$override->get('patient','id', $_GET['pid'])[0]?>
+                                <input type="hidden" name="patient" class="form-control" value="<?=$patient['id']?>">
+                                <input type="text" name="patient" class="form-control" value="<?=$patient['firstname'].'  '.$patient['lastname'].'  '.$patient['phone_number']?>" disabled>
                             </div>
-                        </div>
+                        </div><br>
+                        <h3>Patient Prescription Information</h3>
                         <label></label>
                         <div class="form-group">
                             <div class="col-md-offset-1 col-md-10">
@@ -2559,6 +2575,7 @@ if($user->isLoggedIn()){
                                             <th>Axis</th>
                                             <th>VA</th>
                                             <th>Add</th>
+                                            <th>VA</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -2569,6 +2586,7 @@ if($user->isLoggedIn()){
                                             <td><input name="rx_axis" type="text" class="form-control"/></td>
                                             <td><input name="rx_va" type="text" class="form-control"/></td>
                                             <td><input name="rx_add" type="text" class="form-control"/></td>
+                                            <td><input name="rx_va_2" type="text" class="form-control"/></td>
                                         </tr>
                                         <tr>
                                             <td>Left</td>
@@ -2577,45 +2595,48 @@ if($user->isLoggedIn()){
                                             <td><input name="add_rx_axis" type="text" class="form-control"/></td>
                                             <td><input name="add_rx_va" type="text" class="form-control"/></td>
                                             <td><input name="add_rx_add" type="text" class="form-control"/></td>
+                                            <td><input name="add_rx_va_2" type="text" class="form-control"/></td>
                                         </tr>
                                         </tbody>
                                     </table>
+
+
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-2">
-                                <label class="check"><input name="distance_glasses" type="checkbox" value="Distance Glasses" class="icheckbox"/> Distance Glasses</label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="check"><input name="reading_glasses" type="checkbox" value="Reading Glasses" class="icheckbox"/> Reading Glasses</label>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="lens" id="lens_pow" class="form-control select" data-live-search="true">
-                                    <option value="">Select Lens</option>
-                                    <?php foreach($override->getData('lens_category') as $lens_cat){?>
-                                        <option value="<?=$lens_cat['id']?>"><?=$lens_cat['name']?></option>
-                                    <?php }?>
-                                </select>
-                            </div>
-                            <label id=""></label>
-                            <div class="col-md-2" id="p">
-                                <!--<select name="lens_power" class="form-control select">
-                                    <option value="">Lens Power</option>
-                                </select>-->
-                                <input type="text" name="lens_power" class="form-control" placeholder="Enter Lens Power">
-                            </div>
-                            <div class="col-md-2">
-                                <select name="eye" id="eye" class="form-control select">
-                                    <option value="">Select Eye</option>
-                                    <option value="Both">Both Eyes</option>
-                                    <option value="RE">Right Eye</option>
-                                    <option value="LE">Left Eye</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="wait" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/AjaxLoader.gif' width="32" height="32" /><br>Loading..</div>
-                        <div class="col-md-offset-4" id="other_eye"></div>
+<!--                        <div class="form-group">-->
+<!--                            <div class="col-md-2">-->
+<!--                                <label class="check"><input name="distance_glasses" type="checkbox" value="Distance Glasses" class="icheckbox"/> Distance Glasses</label>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <label class="check"><input name="reading_glasses" type="checkbox" value="Reading Glasses" class="icheckbox"/> Reading Glasses</label>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <select name="lens" id="lens_pow" class="form-control select" data-live-search="true">-->
+<!--                                    <option value="">Select Lens</option>-->
+<!--                                    --><?php //foreach($override->getData('lens_category') as $lens_cat){?>
+<!--                                        <option value="--><?//=$lens_cat['id']?><!--">--><?//=$lens_cat['name']?><!--</option>-->
+<!--                                    --><?php //}?>
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <label id=""></label>-->
+<!--                            <div class="col-md-2" id="p">-->
+<!--                                <select name="lens_power" class="form-control select">-->
+<!--                                    <option value="">Lens Power</option>-->
+<!--                                </select>-->-->
+<!--                                <input type="text" name="lens_power" class="form-control" placeholder="Enter Lens Power">-->
+<!--                            </div>-->
+<!--                            <div class="col-md-2">-->
+<!--                                <select name="eye" id="eye" class="form-control select">-->
+<!--                                    <option value="">Select Eye</option>-->
+<!--                                    <option value="Both">Both Eyes</option>-->
+<!--                                    <option value="RE">Right Eye</option>-->
+<!--                                    <option value="LE">Left Eye</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div id="wait" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/AjaxLoader.gif' width="32" height="32" /><br>Loading..</div>-->
+<!--                        <div class="col-md-offset-4" id="other_eye"></div>-->
                         <div class="pull-right">
                             <input type="submit"  name="checkLens" value="Submit" class="btn btn-info">
                         </div>

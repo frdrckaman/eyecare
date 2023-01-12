@@ -11,8 +11,15 @@ if($user->data()->access_level == 3) {?>
             <li class="">
                 <a href="reception.php">New Patient</a>
             </li>
-            <li class="">
-                <a href="form.php?id=33">Return Patient</a>
+<!--            <li class="">-->
+<!--                <a href="form.php?id=33">Return Patient</a>-->
+<!--            </li>-->
+            <li class="xn-openable">
+            <a href="#">Patients</a>
+            <ul>
+                <li><a href="form.php?id=33&typ=1">Return Patient</a></li>
+                <li><a href="form.php?id=33&typ=2">Out Patients</a></li>
+            </ul>
             </li>
             <li class="xn-openable">
                 <a href="#">Payments</a>
@@ -27,7 +34,7 @@ if($user->data()->access_level == 3) {?>
                 <a href="#">Other Services</a>
                 <ul>
                     <li><a href="form.php?id=7"><span class="fa fa-gear"></span>Lens Fix</a></li>
-                    <li><a href="form.php?id=8"><span class="fa fa-user"></span>Out Patient</a></li>
+<!--                    <li><a href="form.php?id=8"><span class="fa fa-user"></span>Out Patient</a></li>-->
                     <li><a href="form.php?id=9"><span class="fa fa-binoculars"></span> Frames & Sun Glasses</a></li>
                 </ul>
             </li>
